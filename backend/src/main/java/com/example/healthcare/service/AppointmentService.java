@@ -33,9 +33,10 @@ public class AppointmentService {
     public Appointment updateAppointment(Long id, Appointment appointmentDetails) {
         Appointment appointment = appointmentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Appointment not found"));
-        appointment.setDate(appointmentDetails.getDate());
-        appointment.setTime(appointmentDetails.getTime());
-        appointment.setDescription(appointmentDetails.getDescription());
+        appointment.setPatientName(appointmentDetails.getPatientName());
+        appointment.setDoctorName(appointmentDetails.getDoctorName());
+        appointment.setAppointmentDateTime(appointmentDetails.getAppointmentDateTime());
+        appointment.setStatus(appointmentDetails.getStatus());
         return appointmentRepository.save(appointment);
     }
 

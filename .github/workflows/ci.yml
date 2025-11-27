@@ -30,6 +30,25 @@ jobs:
 
       - name: Show Maven version
         run: mvn -v
+
+      - name: Show Java version
+        run: java -version
+
+      - name: List backend files
+        run: |
+          echo "-- backend directory listing --"
+          ls -la ./backend || true
+
+      - name: Run Maven with debug and save log
+        run: |
+          mvn -B -DskipTests=false -X verify | tee mvn-debug.log
+        working-directory: ./backend
+
+      - name: Upload Maven debug log
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-maven-log
+          path: ./backend/mvn-debug.log
       - name: Build and test (Maven)
         run: mvn -B -DskipTests=false verify
         working-directory: ./backend
